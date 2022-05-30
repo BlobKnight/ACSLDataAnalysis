@@ -42,23 +42,20 @@ for link in links: #Parsing through each team's URL and storing the Finals Progr
              if shorts != '' and prog != '':
                 df = df.append({'Finals Shorts': int(shorts), 'Finals Programming': int(prog), 'Total': int(int(shorts) + int(prog))},ignore_index=True)
 
+
+df.to_csv(r'C:\Users\shubh\Documents\ACSL2022\File Name.csv', index = False) #Saving the dataframe to a CSV file
+df = df[df['Finals Programming']!=0] #Removing all rows with 0s
+ax = df.plot.hist(column=["Finals Programming"],figsize=(20,10),range=[0, 20]) #Plotting the histogram of Finals Programming
+fig = ax.get_figure() #Getting the figure
+fig.savefig("prog.png") #Saving the figure
+df = df[df['Finals Shorts']!=0] #Removing all rows with 0s
+ax = df.plot.hist(column=["Finals Shorts"],figsize=(20,10),range = [0, 20]) #Plotting the histogram of Finals Shorts
+fig = ax.get_figure() #Getting the figure
+fig.savefig("shorts.png") #Saving the figure
+df = df[df['Total']!=0] #Removing all rows with 0s
+ax = df.plot.hist(column=["Total"],figsize=(20,10),range = [0, 20]) #Plotting the histogram of Total
+fig = ax.get_figure() #Getting the figure
+fig.savefig("total.png") #Saving the figure
+
 medians=df.median() #Calculating the median of the dataframe
 print(medians) #Printing the median
-
-
-        
-
-
-
-
-
-
-df.to_csv(r'C:\Users\shubh\Documents\ACSL2022\File Name.csv', index = False)
-df = df[df['Finals Programming']!=0]
-ax = df.plot.hist(column=["Finals Programming"],figsize=(20,10),range=[0, 20])
-fig = ax.get_figure()
-fig.savefig("prog.png")
-df = df[df['Finals Shorts']!=0]
-ax = df.plot.hist(column=["Finals Shorts"],figsize=(20,10),range = [0, 20])
-fig = ax.get_figure()
-fig.savefig("shorts.png")
