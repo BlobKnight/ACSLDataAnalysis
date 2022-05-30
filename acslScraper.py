@@ -14,7 +14,10 @@ headers = {
 
 
 links = []
-urls  = ["https://www.scores.acsl.org/leaderboard/teams/s3/","https://www.scores.acsl.org/leaderboard/teams/s5/"] #List of URLs to scrape
+urls = ["https://www.scores.acsl.org/leaderboard/teams/s3/","https://www.scores.acsl.org/leaderboard/teams/s5/"] #List of Senior URLs to scrape
+#urls = ["https://www.scores.acsl.org/leaderboard/teams/i3/","https://www.scores.acsl.org/leaderboard/teams/i5/"] #List of Intermediate URLs to scrape
+#urls = ["https://www.scores.acsl.org/leaderboard/teams/j3/","https://www.scores.acsl.org/leaderboard/teams/j5/"] #List of Junior URLs to scrape
+
 for url in urls: #Finding each team URL in both Senior sections to parse through
     tempLink = []
     req = requests.get(url, headers)
@@ -43,7 +46,7 @@ for link in links: #Parsing through each team's URL and storing the Finals Progr
                 df = df.append({'Finals Shorts': int(shorts), 'Finals Programming': int(prog), 'Total': int(int(shorts) + int(prog))},ignore_index=True)
 
 
-df.to_csv(r'C:\Users\shubh\Documents\ACSL2022\File Name.csv', index = False) #Saving the dataframe to a CSV file
+df.to_csv(r'File Name.csv', index = False) #Saving the dataframe to a CSV file
 df = df[df['Finals Programming']!=0] #Removing all rows with 0s
 ax = df.plot.hist(column=["Finals Programming"],figsize=(20,10),range=[0, 20]) #Plotting the histogram of Finals Programming
 fig = ax.get_figure() #Getting the figure
@@ -59,3 +62,4 @@ fig.savefig("total.png") #Saving the figure
 
 medians=df.median() #Calculating the median of the dataframe
 print(medians) #Printing the median
+
